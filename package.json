@@ -1,0 +1,29 @@
+{
+  "name": "create-purplet",
+  "version": "1.0.0",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CRBT-Team/create-purplet"
+  },
+  "license": "MIT",
+  "main": "./index.js",
+  "bin": "./bin.js",
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "ora": "^6.1.0",
+    "prompts": "^2.4.2"
+  },
+  "files": [
+    "bin.js",
+    "index.js"
+  ],
+  "type": "module",
+  "devDependencies": {
+    "@types/prettier": "^2.4.4",
+    "@types/prompts": "^2.0.14",
+    "discord.js": "^13.6.0",
+    "prettier": "^2.6.1",
+    "purplet": "^1.2.7"
+  }
+}
