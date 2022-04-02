@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-//@ts-check
 // LARGELY inspired by create-svelte https://github.com/sveltejs/kit/blob/master/packages/create-svelte/bin.js
 
 import fs from 'fs';
@@ -10,7 +9,7 @@ import ora from 'ora';
 import { createPurplet } from './index.js';
 
 const { devDependencies: deps } = JSON.parse(
-  fs.readFileSync(path.resolve('./package.json'), 'utf-8')
+  fs.readFileSync(new URL('package.json', import.meta.url), 'utf-8')
 );
 
 const crbtFace = `
@@ -61,7 +60,8 @@ const main = async () => {
       {
         name: 'dir',
         type: 'text',
-        message: 'Where should the project be initialized?',
+        message:
+          'Where should the project be created?\n  (leave blank for current directory)',
       },
     ]);
 
@@ -75,7 +75,7 @@ const main = async () => {
       const response = await prompts({
         type: 'confirm',
         name: 'value',
-        message: 'Directory not empty. Continue?',
+        message: 'Directory not empty. Continue? (you may lose files)',
         initial: false,
       });
 

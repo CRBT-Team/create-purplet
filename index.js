@@ -1,19 +1,21 @@
-//@ts-check
-
 import fs, { readFileSync } from 'fs';
 import path from 'path';
+import { fileURLToPath, pathToFileURL } from 'url';
 
 const { devDependencies: deps } = JSON.parse(
-  fs.readFileSync(path.resolve('./package.json'), 'utf-8')
+  fs.readFileSync(new URL('package.json', import.meta.url), 'utf-8')
 );
 
 export const createPurplet = async (dir, options) => {
   fs.mkdirSync(dir, { recursive: true });
 
   try {
-    copyFiles(dir, './templates/blank');
+    const templateDir = fileURLToPath(
+      new URL(`./templates/blank`, import.meta.url).href
+    );
+    copyFiles(dir, templateDir);
   } catch (e) {
-    throw new Error('Purplet project creation failed');
+    throw new Error(e);
   }
 };
 
@@ -21,7 +23,10 @@ const copyFiles = (dir, templateDir) => {
   const files = fs.readdirSync(templateDir);
 
   const ignored = fs
-    .readFileSync(`./templates/blank/.ignore`, 'utf-8')
+    .readFileSync(
+      fileURLToPath(new URL(`./templates/blank/.ignore`, import.meta.url)),
+      'utf-8'
+    )
     .split('\r\n');
 
   files.forEach((file) => {
