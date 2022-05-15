@@ -1,10 +1,6 @@
 import fs, { readFileSync } from 'fs';
 import path from 'path';
-import { fileURLToPath, pathToFileURL } from 'url';
-
-const { devDependencies: deps } = JSON.parse(
-  fs.readFileSync(new URL('package.json', import.meta.url), 'utf-8')
-);
+import { fileURLToPath } from 'url';
 
 export const createPurplet = async (dir, options) => {
   fs.mkdirSync(dir, { recursive: true });
@@ -13,13 +9,13 @@ export const createPurplet = async (dir, options) => {
     const templateDir = fileURLToPath(
       new URL(`./templates/blank`, import.meta.url).href
     );
-    copyFiles(dir, templateDir);
+    copyFiles(dir, templateDir, options.deps);
   } catch (e) {
     throw new Error(e);
   }
 };
 
-const copyFiles = (dir, templateDir) => {
+const copyFiles = (dir, templateDir, deps) => {
   const files = fs.readdirSync(templateDir);
 
   const ignored = fs

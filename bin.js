@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+//@ts-check
 // LARGELY inspired by create-svelte https://github.com/sveltejs/kit/blob/master/packages/create-svelte/bin.js
 
 import fs from 'fs';
@@ -88,7 +89,7 @@ const main = async () => {
 
   const spinner = ora('Creating Purplet project').start();
   try {
-    await createPurplet(cwd);
+    await createPurplet(cwd, { deps });
     spinner.succeed(chalk.bold.green('Purplet project created!'));
 
     console.log('\nNext steps:');
